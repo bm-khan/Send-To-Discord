@@ -1,0 +1,62 @@
+<!doctype html>
+<!--
+ * Copyright (c) 2010 The Chromium Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+-->
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+</head>
+
+<body>
+
+<b><u><h style="padding-bottom: 10px"> Add new webhook: </h></u></b>
+<br/>
+<div class="block" style="padding-top: 10px">
+    <label> Webhook Name </label>
+    <input id="newTitle" class="name" type="text" />
+</div>
+
+<div class="block">
+    <label> Webhook URL </label>
+    <input id="newUrl" class="url" type="text" />
+</div>
+
+<div class="block">
+    <label> Username on server </label>
+    <input id="webhookName" class="name" type="text" />
+</div>
+
+<div class="block">
+    <label> Webhook avatar URL </label>
+    <input id="webhookAvatar" class="url" type="text" />
+</div>
+
+<div class="block" style="padding-top: 10px">
+    <button id="addNew"> Add new webhook </button>
+    <!-- <button id="clear"> clear </button>
+    <button id="print"> print </button> -->
+</div>
+
+<br/>
+<!--
+<b><u><h style="padding-bottom: 10px"> Settings: </h></u></b>
+<br/>
+<div class="block" style="padding-top: 10px">
+    <button id="save"> Save settings </button>
+</div> -->
+
+
+
+<br/>
+
+<div class="block">
+  <b><u><h> Webhooks: </h></u></b>
+  <div class="block table" id="webhooks" style="padding-top:10px"> </div>
+</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,17 +1,19 @@
 var webhooksFile = "webhooks.json"
-var contexts = ["link", "image", "selection", "video"];
+var contexts = ["link", "image", "selection", "video", "page"];
 
 function sendReqToWebhookWrap(webhooks) {
   return function(info, tab) {
     console.log(info);
-    console.log(info.srcUrl, info.linkUrl, info.selectionText);
+    console.log(info.srcUrl, info.linkUrl, info.selectionText, info.pageUrl);
     let data;
     if (info.srcUrl) {
       data = info.srcUrl;
     } else if(info.linkUrl) {
       data = info.linkUrl;
-    } else if(info.selectionText){
+    } else if(info.selectionText) {
       data = info.selectionText;
+    } else if(info.pageUrl) {
+      data = info.pageUrl;
     } else {
       data = undefined;
     }

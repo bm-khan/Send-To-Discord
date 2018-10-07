@@ -20,3 +20,12 @@ How to use:
   - After setting these fields, click "Add new webhook"
 
 Now when browsing in Chrome, right-click links, images, or highlighted text or a page and open the "Send to Discord" context menu item to send the content you right-clicked to any of the webhooks you registered. 
+
+
+
+The tool was designed for use with Discord webhooks, I have yet to test it with other services with webhooks that take incoming HTTP POST requests, like Slack. 
+For references, HTTP Post request bodies have a format like so:
+
+"content": [Content that you right-clcked]
+"username": [Username you added to the webhook, not sent in body if empty]
+"avatar_url": [Url of avatar you added to the webhook, not sent if empty]

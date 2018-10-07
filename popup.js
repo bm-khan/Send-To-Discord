@@ -8,10 +8,9 @@ var inputs = [
   {element: usernameInput, key: "newUsername"},
   {element: avatarUrlInput, key: "newAvatar"},
 ];
-
 var addButton = document.getElementById("addNew");
-
 var webhooks;
+var editingWebhook;
 
 function clearWebhooks() {
     console.log("clearing webhooks");
@@ -56,14 +55,9 @@ function saveText() {
     chrome.storage.local.set({"input": storedInput}, function() {});
 }
 
-function deleteNode(url) {
+function deleteNode(idx) {
   return function() {
-      for (let i = 0; i < webhooks.length; i++) {
-          if (webhooks[i].url === url) {
-              webhooks.splice(i, 1);
-              break;
-          }
-      }
+      webhooks.splice(idx, 1);
       chrome.storage.sync.set({"webhooks": webhooks}, function() {console.log("webhook deleted")});
 
   }
@@ -84,11 +78,18 @@ function displayWebhooks() {
     name.appendChild(text);
     listItem.appendChild(name);
 
+    let editButton = document.createElement("Button");
+    editButton.className = "edit";
+    let editText = document.createTextNode("Edit");
+    editButton.appendChild(editText);
+    editButton.onclick = editNode(webhooks[i].url);
+    listItem.appendChild(editButton);
+
     let deleteButton = document.createElement("Button");
     deleteButton.className = "delete";
     let delText = document.createTextNode("Delete");
     deleteButton.appendChild(delText);
-    deleteButton.onclick = deleteNode(webhooks[i].url);
+    deleteButton.onclick = deleteNode(i);
     listItem.appendChild(deleteButton);
   }
 }

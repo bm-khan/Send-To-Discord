@@ -14,10 +14,7 @@ var addBlock = document.getElementById("addBlock");
 var editBlock = document.getElementById("editBlock");
 
 var webhooks;
-var editingWebhookIdx;
-
-
-
+var editingWebhook;
 
 function clearWebhooks() {
     console.log("clearing webhooks");
@@ -67,22 +64,22 @@ function editNode(idx) {
     document.getElementById("header").innerHTML = "Edit webhook:";
     editBlock.style.display = "block";
     addBlock.style.display = "none";
-    editingWebhookIdx = idx;
+    editingWebhook = webhooks[idx];
 
-    titleInput.value = webhooks[idx].title;
-    urlInput.value = webhooks[idx].url;
-    usernameInput.value = webhooks[idx].username;
-    avatarUrlInput.value = webhooks[idx].avatar_url;
+    titleInput.value = editingWebhook.title;
+    urlInput.value = editingWebhook.url;
+    usernameInput.value = editingWebhook.username;
+    avatarUrlInput.value = editingWebhook.avatar_url;
   }
 }
 
 function saveSettings() {
   addBlock.style.display = "block";
   editBlock.style.display = "none";
-  webhooks[editingWebhookIdx].title = titleInput.value;
-  webhooks[editingWebhookIdx].url = urlInput.value;
-  webhooks[editingWebhookIdx].username = usernameInput.value;
-  webhooks[editingWebhookIdx].avatar_url = avatarUrlInput.value;
+  editingWebhook.title = titleInput.value;
+  editingWebhook.url = urlInput.value;
+  editingWebhook.username = usernameInput.value;
+  editingWebhook.avatar_url = avatarUrlInput.value;
 
   for (let i = 0; i < inputs.length; i++) {
     inputs[i].element.value = "";

@@ -8,13 +8,19 @@
     },
     "browser_action": {
         "default_icon": {
-            "32": "images/discord-icon-32.png"
+            "16": "images/discord-icon-16.png",
+            "32": "images/discord-icon-32.png",
+            "48": "images/discord-icon-48.png",
+            "64": "images/discord-icon-64.png"
           },
         "default_title": "Configure meme poster",
         "default_popup": "popup.html"
     },
     "icons": {
-      "32": "images/discord-icon-32.png"
+      "16": "images/discord-icon-16.png",
+      "32": "images/discord-icon-32.png",
+      "48": "images/discord-icon-48.png",
+      "64": "images/discord-icon-64.png"
     },
     "manifest_version": 2
   }

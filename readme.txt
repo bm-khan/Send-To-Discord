@@ -19,6 +19,4 @@ How to use:
     - Webhook avatar URL: The avatar the webhook will use when it posts, must be hosted online, if blank, the default image created by admin will be used
   - After setting these fields, click "Add new webhook"
 
-Now when browsing in Chrome, right-click links, images, or highlighted text and open the "Send to Discord" context menu item.
-From here, select the webhook you wish to send this content to or all linked webhooks and a message will be sent
-to the Discord server you linked with the content you right clicked.
+Now when browsing in Chrome, right-click links, images, or highlighted text or a page and open the "Send to Discord" context menu item to send the content you right-clicked to any of the webhooks you registered. 

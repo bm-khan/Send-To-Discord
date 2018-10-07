@@ -24,8 +24,13 @@ Now when browsing in Chrome, right-click links, images, or highlighted text or a
 
 
 The tool was designed for use with Discord webhooks, I have yet to test it with other services with webhooks that take incoming HTTP POST requests, like Slack. 
-For references, HTTP Post request bodies have a format like so:
+For references, HTTP Post request have a format like so:
 
-"content": [Content that you right-clcked]
-"username": [Username you added to the webhook, not sent in body if empty]
-"avatar_url": [Url of avatar you added to the webhook, not sent if empty]
+
+Header:
+  "Content-Type": "application/json"
+
+Body:
+  "content": [Link to content that you right-clcked]
+  "username": [Username you added to the webhook]
+  "avatar_url": [Url of avatar you added to the webhook]

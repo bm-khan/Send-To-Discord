@@ -64,6 +64,7 @@ function saveText() {
 
 function editNode(idx) {
   return function() {
+    document.getElementById("header").innerHTML = "Edit webhook:";
     editBlock.style.display = "block";
     addBlock.style.display = "none";
     editingWebhookIdx = idx;
@@ -89,6 +90,7 @@ function saveSettings() {
   }
   chrome.storage.sync.set({"webhooks": webhooks}, function() {console.log("webhook edited")});
   saveText();
+  document.getElementById("header").innerHTML = "Add new webhook:";
 
 }
 

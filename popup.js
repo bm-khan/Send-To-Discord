@@ -27,8 +27,8 @@ function doThing() {
     let newWebhook = {
         title: titleInput.value,
         url: urlInput.value,
-        username: = usernameInput.value,
-        avatar_url: = avatarUrlInput.value,
+        username: usernameInput.value,
+        avatar_url: avatarUrlInput.value,
     }
 
     for (let i = 0; i < inputs.length; i++) {

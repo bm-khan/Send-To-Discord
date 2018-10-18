@@ -1,11 +1,11 @@
 Welcome to Discord Sharing Tool (name not final)
 
 To Install:
-  - Unzip the "Send to Discord.zip" file
+  - Unzip the "Send to Discord.zip" file or clone the repository somewhere on your computer
   - Open up Google Chrome and enter "chrome://extensions" in teh address bar
   - Enable Developer Mode
   - Click the "Load unpacked" button
-  - Open the folder with the unzipped contents of the "Send to Discord.zip" file
+  - Open the folder with the unzipped contents of the "Send to Discord.zip" file or the cloned repository
   - Ensure the extension is enabled
 
 How to use:

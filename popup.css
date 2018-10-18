@@ -4,20 +4,20 @@ input {
   width:  300px;
 }​
 
+ /*My knowledge of css isnt strong to understand why, but without this here the css gets wonky, so im just gonna leave it*/
 h {
-  font-size: 20x
+  x:d;
+  icanput:anythinghere;
 }
 
 body {
-  /* max-width: 100%; */
-  /* max-height: 100%; */
-  /* position: relative; */
   vertical-align: middle;
   background-color: #9ec3ff;
 }
 
 .listItem {
-  /* vertical-align: text-bottom; */
+  height: 30px;
+  position: relative;
   display:flex;
   align-items:center;
 }
@@ -25,16 +25,18 @@ body {
 .name {
   display: inline-block;
   padding-right: 5px;
+  font-size: 15px;
+}
+
+.option {
+  position: absolute;
+  float: right;
 }
 
 .delete {
-  float: right;
-  /* text-align: middle; */
-  /* horizontal-align: text-bottom; */
+  right: -3px;
 }
 
 .edit {
-  float: right;
-  /* text-align: middle; */
-  /* horizontal-align: text-bottom; */
+  right: 51px;
 }

@@ -1,22 +1,24 @@
 <!doctype html>
-<!--
- * Copyright (c) 2010 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
--->
 <html>
-
-<head>
-  <link rel="stylesheet" type="text/css" href="popup.css">
+<head> 
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <!-- Grid for troubleshooting css-->
+    <!-- <style> 
+        body {  
+            background-size: 20px 20px;
+            background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
+        }
+    </style> -->
 </head>
-
 <body>
 
-<b><u><h id = "header" style="padding-bottom: 10px"> Add new webhook: </h></u></b>
+<b><u id = "header" style="padding-bottom: 10px"> Add new webhook: </u></b>
+
 <br/>
+
 <div class="block" style="padding-top: 10px">
     <label> Webhook Name </label>
-    <input id="newTitle" class="name" type="text" />
+    <input id="newTitle" class="url" type="text" />
 </div>
 
 <div class="block">
@@ -26,7 +28,7 @@
 
 <div class="block">
     <label> Username on server </label>
-    <input id="webhookName" class="name" type="text" />
+    <input id="webhookName" class="url" type="text" />
 </div>
 
 <div class="block">
@@ -36,22 +38,20 @@
 
 <div id="addBlock" class="block" style="padding-top: 10px">
     <button id="addNew"> Add new webhook </button>
-    <!-- <button id="clear"> clear </button>
-    <button id="print"> print </button> -->
 </div>
 
 <div id="editBlock" class="block" style="padding-top: 10px">
     <button id="save"> Save settings </button>
 </div>
 
-
 <br/>
 
 <div class="block">
-  <b><u><h> Webhooks: </h></u></b>
+  <b><u> Webhooks:</u></b>
   <div class="block table" id="webhooks" style="padding-top:10px"> </div>
 </div>
 
-  <script src="popup.js"></script>
+<script src="popup.js"></script>
+
 </body>
 </html>

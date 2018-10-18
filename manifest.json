@@ -1,8 +1,8 @@
 {
     "name": "Discord Sharing Tool",
     "description": "Send content to Discord servers using webhooks",
-    "version": "0.1",
-    "permissions": ["contextMenus", "activeTab", "storage", "<all_urls>"],
+    "version": "1.0",
+    "permissions": ["contextMenus", "activeTab", "storage"],
     "background": {
         "scripts": ["background.js"]
     },

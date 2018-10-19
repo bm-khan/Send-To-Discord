@@ -1,20 +1,23 @@
 <!doctype html>
 <html>
-<head> 
+<head>
     <link rel="stylesheet" type="text/css" href="popup.css">
     <!-- Grid for troubleshooting css-->
-    <!-- <style> 
-        body {  
+    <!-- <style>
+        body {
             background-size: 20px 20px;
             background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
         }
     </style> -->
 </head>
 <body>
+<div>
+  <b><u id = "header"> Add new webhook: </u></b>
+  <div class= "block" style="float: right">
+      <button id="toggle"> Toggle mode </button>
+  </div>
+</div>
 
-<b><u id = "header" style="padding-bottom: 10px"> Add new webhook: </u></b>
-
-<br/>
 
 <div class="block" style="padding-top: 10px">
     <label> Webhook Name </label>
@@ -36,13 +39,16 @@
     <input id="webhookAvatar" class="url" type="text" />
 </div>
 
-<div id="addBlock" class="block" style="padding-top: 10px">
-    <button id="addNew"> Add new webhook </button>
+<div>
+  <div id="addBlock" class="block" style="padding-top: 10px">
+      <button id="addNew"> Add new webhook </button>
+  </div>
+
+  <div id="editBlock" class="block" style="padding-top: 10px">
+      <button id="save"> Save settings </button>
+  </div>
 </div>
 
-<div id="editBlock" class="block" style="padding-top: 10px">
-    <button id="save"> Save settings </button>
-</div>
 
 <br/>
 

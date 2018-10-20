@@ -11,49 +11,89 @@
     </style> -->
 </head>
 <body>
+
+
 <div>
-  <b><u id = "header"> Add new webhook: </u></b>
-  <div class= "block" style="float: right">
-      <button id="toggle"> Toggle mode </button>
-  </div>
+  <b><u id="header"> Add new webhook: </u></b>
+
+  <b><u id="header"> Add new channel: </u></b>
 </div>
 
 
 <div class="block" style="padding-top: 10px">
-    <label> Webhook Name </label>
-    <input id="newTitle" class="url" type="text" />
+  <div class="wh">
+    <label id="whTitleLabel"> Webhook Name: </label>
+    <input id="whTitle" class="url" type="text" />
+  </div>
+
+  <div class="ch">
+    <label id="chTitleLabel"> Channel Name: </label>
+    <input id="chTitle" class="url" type="text" />
+  </div>
+</div>
+
+
+<div class="block">
+  <div class="wh">
+    <label id="whUrlLabel"> Webhook URL: </label>
+    <input id="whUrl" class="url" type="text" />
+  </div>
+
+  <div class="ch">
+    <label id="chIdLabel"> Channel ID: </label>
+    <input id="chId" class="url" type="text"/width="w">
+  </div>
 </div>
 
 <div class="block">
-    <label> Webhook URL </label>
-    <input id="newUrl" class="url" type="text" />
+  <div class="wh">
+    <label id="weUserLabel"> Username on server </label>
+    <input id="whUser" class="url" type="text" />
+  </div>
+
+  <div class="ch">
+    <label id="chTypeLabel"> Channel Type: </label>
+    <br/>
+    <select id="chType">
+      <option value="USER"> User </option>
+      <option value="CHANNEL"> Text Channel </option>
+    </select>
+  </div>
 </div>
 
-<div class="block">
-    <label> Username on server </label>
-    <input id="webhookName" class="url" type="text" />
-</div>
 
 <div class="block">
-    <label> Webhook avatar URL </label>
-    <input id="webhookAvatar" class="url" type="text" />
+  <div class="wh">
+    <label id="whAviLabel"> Webhook avatar URL </label>
+    <input id="whAvi" class="url" type="text" />
+  </div>
+
+  <div class="ch">
+    <label id="chBotUrlLabel"> Bot URL </label>
+    <input id="chBotUrl" class="url" type="text"/>
+  </div>
 </div>
 
 <div>
-  <div id="addBlock" class="block" style="padding-top: 10px">
-      <button id="addNew"> Add new webhook </button>
+  <div id="addBlock" class="block" style="float: left; padding-top: 10px">
+      <button id="add"> Add new webhook </button>
   </div>
 
-  <div id="editBlock" class="block" style="padding-top: 10px">
+  <div id="editBlock" class="block" style="float: left; padding-top: 10px">
       <button id="save"> Save settings </button>
+  </div>
+
+  <div id="toggleBlock" class="block" style="float: right; padding-top: 10px">
+    <button id="toggle" class="menuButton"> Toggle mode </button>
   </div>
 </div>
 
-
+<br/>
+<br/>
 <br/>
 
 <div class="block">
-  <b><u> Webhooks:</u></b>
+  <b><u> Webhooks and Channels:</u></b>
   <div class="block table" id="webhooks" style="padding-top:10px"> </div>
 </div>
 

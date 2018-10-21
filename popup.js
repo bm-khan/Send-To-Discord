@@ -1,11 +1,13 @@
 var storage = chrome.storage.sync;
 const NAMESPACES = {
   webhooks: "webhooks",
-  input: "input"
+  whInput: "whInput",
+  chInput: "chInput",
+  mode: "mode"
 };
 
-const MODES = ["WEBHOOK", "CHANNEL"]
-var mode = 0
+const MODES = ["WEBHOOK", "CHANNEL"];
+var mode = 0;
 
 // Html text inputs and buttons
 var header = document.getElementById("header");
@@ -50,8 +52,13 @@ var editingWebhook;
 
 // Toggles between adding new channel or new webhook
 function toggle() {
+  if (isNaN(mode)) {mode = 0; console.log("converted");}
   mode = 1 - mode;
-  // Toggles whether to display elements
+  storage.set({[NAMESPACES.mode]: String(mode)}, function() {});
+  // Toggles which elements to display
+  console.log(mode, header.innerHTML);
+  header.innerHTML = !mode ? "Add new webhook:" : "Add new channel:";
+  console.log(mode, header.innerHTML);
   wh = document.getElementsByClassName("wh");
   for(let i = 0; i < wh.length; i++) {
     wh[i].style.display = wh[i].style.display === 'none' ? '' : 'none';
@@ -66,87 +73,112 @@ function toggle() {
 // The method that does the thing
 // The thing being - Adding a webhook to your list of webhooks
 function doThing() {
-    // let newItem = {};
-    // if (MODES[mode] === "WEBHOOK") {
-    //   newItem.title = whTitle.value;
-    //   newItem.url = whUrl.value;
-    //   newItem.username = whUrl.value;
-    //   newItem.avatar_url = whAvi.value;
-    //
-    //   for (let i = 0; i < whInputs.length; i++) {
-    //     whInputs[i].element.value = "";
-    //   }
-    // }
-    // else if (MODES[mode] === "CHANNEL") {
-    //   newItem.title = chTitle.value;
-    //   newItem.id = chId.value;
-    //   newItem.type = chType.value;
-    //   newItem.url = chBotUrl.value;
-    //
-    //   for (let i = 0; i < chInputs.length; i++) {
-    //     chInputs[i].element.value = "";
-    //   }
-    // }
+    let newItem = {mode: mode};
+    if (MODES[mode] === "WEBHOOK") {
+      newItem.title = whTitle.value;
+      newItem.url = whUrl.value;
+      newItem.username = whUser.value;
+      newItem.avatar_url = whAvi.value;
 
+      for (let i = 0; i < whInputs.length; i++) {
+        whInputs[i].element.value = "";
+      }
+      storage.set({[NAMESPACES.whInput]: ";;;"}, function() {}); // Clear any saved text input, all inputs are stored in one string separated by semicolons, to reduce api calls
+    }
+    else if (MODES[mode] === "CHANNEL") {
+      newItem.title = chTitle.value;
+      newItem.id = chId.value;
+      newItem.type = chType.value;
+      newItem.url = chBotUrl.value;
 
-    // get current webhook list, append value, set again
-    let newWebhook = {
-        title: whTitle.value,
-        url: whUrl.value,
-        username: whUser.value,
-        avatar_url: whAvi.value,
+      for (let i = 0; i < chInputs.length; i++) {
+        chInputs[i].element.value = "";
+      }
+      storage.set({[NAMESPACES.chInput]: ";;;"}, function() {}); // Clear any saved text input, all inputs are stored in one string separated by semicolons, to reduce api calls
     }
-    // Clear inputs
-    for (let i = 0; i < whInputs.length; i++) {
-      whInputs[i].element.value = "";
-    }
-    webhooks.push(newWebhook);
-    storage.set({[NAMESPACES.input]: ";;;"}, function() {}); // Clear any saved text input, all inputs are stored in one string separated by semicolons, to reduce api calls
+    webhooks.push(newItem);
     storage.set({[NAMESPACES.webhooks]: webhooks}, function() {console.log("new webhook added")}); // Push new list of webhooks
 }
 
 // Saves the contents of text inputs when popup loses focus
 function saveText() {
+    console.log("Mode: ", mode, MODES[mode])
+
     let storedInput = "";
-    for (let i = 0; i < whInputs.length; i++) {
-      storedInput += (whInputs[i].element.value + ";");
+    if (MODES[mode] === "WEBHOOK") {
+      for (let i = 0; i < whInputs.length; i++) {
+        storedInput += (whInputs[i].element.value + ";");
+      }
+      console.log("to save: ", storedInput);
+      storage.set({[NAMESPACES.whInput]: storedInput}, function() {});
+
+    } else if (MODES[mode] === "CHANNEL") {
+      for (let i = 0; i < chInputs.length; i++) {
+        storedInput += (chInputs[i].element.value + ";");
+      }
+      storage.set({[NAMESPACES.chInput]: storedInput}, function() {});
     }
-    storage.set({[NAMESPACES.input]: storedInput}, function() {});
 }
 
 // Sets popup to edit a webhook when you click edit
 function editNode(idx) {
   return function() {
-    header.innerHTML = "Edit webhook:";
+    editingWebhook = webhooks[idx];
+    if(mode !== editingWebhook.mode) {
+      toggle();
+    }
+    toggleButton.style.display = "none";
+    header.innerHTML = "Edit item:";
     editBlock.style.display = "block";
     addBlock.style.display = "none";
-    editingWebhook = webhooks[idx];
-    whTitle.value = editingWebhook.title; // Set current values of webhook into text inputs
-    whUrl.value = editingWebhook.url;
-    whUser.value = editingWebhook.username;
-    whAvi.value = editingWebhook.avatar_url;
+    if (MODES[editingWebhook.mode] === "WEBHOOK") {
+      whTitle.value = editingWebhook.title; // Set current values of webhook into text inputs
+      whUrl.value = editingWebhook.url;
+      whUser.value = editingWebhook.username;
+      whAvi.value = editingWebhook.avatar_url;
+    } else if (MODES[editingWebhook.mode] === "CHANNEL") {
+      chTitle.value = editingWebhook.title;
+      chId.value = editingWebhook.id;
+      chType.value = editingWebhook.type;
+      chBotUrl.value = editingWebhook.url;
+    }
   }
 }
 
 function saveSettings() {
   addBlock.style.display = "block";
   editBlock.style.display = "none";
-  editingWebhook.title = whTitle.value;
-  editingWebhook.url = whUrl.value;
-  editingWebhook.username = whUser.value;
-  editingWebhook.avatar_url = whAvi.value;
-  storage.set({[NAMESPACES.webhooks]: webhooks}, function() {console.log("webhook edited")});
-  // Clear any inputs and saved text
-  for (let i = 0; i < whInputs.length; i++) {
-    whInputs[i].element.value = "";
+  toggleButton.style.display = "";
+  if (MODES[mode] === "WEBHOOK") {
+    editingWebhook.title = whTitle.value;
+    editingWebhook.url = whUrl.value;
+    editingWebhook.username = whUser.value;
+    editingWebhook.avatar_url = whAvi.value;
+    // Clear any inputs and saved text
+    for (let i = 0; i < whInputs.length; i++) {
+      whInputs[i].element.value = "";
+    }
+  } else if (MODES[mode] === "CHANNEL") {
+    editingWebhook.title = chTitle.value;
+    editingWebhook.id = chId.value;
+    editingWebhook.type = chType.value;
+    editingWebhook.url = chBotUrl.value;
+    // Clear any inputs and saved text
+    for (let i = 0; i < chInputs.length; i++) {
+      chInputs[i].element.value = "";
+    }
   }
+  storage.set({[NAMESPACES.webhooks]: webhooks}, function() {console.log("webhook edited")});
   saveText();
-  header.innerHTML = "Add new webhook:";
+  header.innerHTML = !mode ? "Add new webhook:" : "Add new channel:";
 }
 
 // delet node
 function deleteNode(idx) {
   return function() {
+      if (webhooks[idx] === editingWebhook) {
+        saveSettings();
+      }
       webhooks.splice(idx, 1);
       storage.set({[NAMESPACES.webhooks]: webhooks}, function() {console.log("webhook deleted")});
   }
@@ -209,21 +241,40 @@ window.onload = function() {
     displayWebhooks();
   });
 
-  storage.get([NAMESPACES.input], function(result) { // Grab previously saved text input
-    console.log(result.input);
-    // If there was no text in the name space, initialize them to an array of empty strings, otherwise, split result at the semicolons
-    inputValues = (result.input === undefined ? ["", "", "", ""] : result.input.split(";"));
-    for (let i = 0; i < whInputs.length; i++) {
-      whInputs[i].element.value = inputValues[i];
-    }
-  });
-  editBlock.style.display = "none";
+  storage.get([NAMESPACES.mode], function(result) {
+    console.log("LOADED MODED", result.mode);
+    mode = +result.mode;
+    console.log("MODE ON LOAD: ", mode);
 
-  let ch = document.getElementsByClassName("ch");
-  for(let i = 0; i < ch.length; i++) {
-    ch[i].style.display = "none";
-  }
-}
+    storage.get([NAMESPACES.whInput, NAMESPACES.chInput], function(result) { // Grab previously saved text input
+      console.log(result.whInput, result.chInput);
+
+      // If there was no text in the name space, initialize them to an array of empty strings, otherwise, split result at the semicolons
+      whInputValues = (result.whInput === undefined ? ["", "", "", ""] : result.whInput.split(";"));
+      chInputValues = (result.chInput === undefined ? ["", "", "", ""] : result.chInput.split(";"));
+
+      for (let i = 0; i < whInputs.length; i++) {
+        whInputs[i].element.value = whInputValues[i];
+      }
+      for (let i = 0; i < chInputs.length; i++) {
+        chInputs[i].element.value = chInputValues[i];
+      }
+
+
+    });
+    console.log("PRE", mode);
+
+    let hideClass = mode ? "wh" : "ch";
+    console.log("hiding: ", hideClass)
+    let elements = document.getElementsByClassName(hideClass);
+    for(let i = 0; i < elements.length; i++) {
+      elements[i].style.display = "none";
+    }
+    editBlock.style.display = "none";
+    header.innerHTML = !mode ? "Add new webhook:" : "Add new channel:";
+
+  });
+};
 
 // Listen for changes to storage to redisplay webhooks
 chrome.storage.onChanged.addListener(function(changes, namespace) {
@@ -240,4 +291,7 @@ toggleButton.addEventListener('click', toggle);
 // If any text input loses focues, save text
 for (let i = 0; i < whInputs.length; i++) {
   whInputs[i].element.addEventListener('blur', saveText);
+}
+for (let i = 0; i < chInputs.length; i++) {
+  chInputs[i].element.addEventListener('blur', saveText);
 }

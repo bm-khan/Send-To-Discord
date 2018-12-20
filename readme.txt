@@ -2,7 +2,7 @@ Welcome to Discord Sharing Tool (name not final)
 
 To Install:
   - Unzip the "Send to Discord.zip" file or clone the repository somewhere on your computer
-  - Open up Google Chrome and enter "chrome://extensions" in teh address bar
+  - Open up Google Chrome and enter "chrome://extensions" in the address bar
   - Enable Developer Mode
   - Click the "Load unpacked" button
   - Open the folder with the unzipped contents of the "Send to Discord.zip" file or the cloned repository
@@ -19,12 +19,11 @@ How to use:
     - Webhook avatar URL: The avatar the webhook will use when it posts, must be hosted online, if blank, the default image created by admin will be used
   - After setting these fields, click "Add new webhook"
 
-Now when browsing in Chrome, right-click links, images, or highlighted text or a page and open the "Send to Discord" context menu item to send the content you right-clicked to any of the webhooks you registered. 
+Now when browsing in Chrome, right-click links, images, highlighted text, or a page and open the "Send to Discord" context menu item to send the content you right-clicked to any of the webhooks you registered. 
 
 
-
-The tool was designed for use with Discord webhooks, I have yet to test it with other services with webhooks that take incoming HTTP POST requests, like Slack. 
-For references, HTTP Post request have a format like so:
+The tool was designed for use with Discord webhooks, I have yet to test it with other services with webhook support like Slack. 
+For reference, the HTTP Post requests have a format like so:
 
 
 Header:
